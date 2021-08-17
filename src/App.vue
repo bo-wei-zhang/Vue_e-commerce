@@ -1,32 +1,47 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  <div id="app">   
     <router-view/>
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import url(../public/css/reset.css);
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap');
+.flex-content {
+  display: flex;
+  flex-wrap: wrap;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+body {
+  font-family: Noto Sans TC, Helvetica, Arial, LiHei Pro, 黑體-繁, 微軟正黑體,
+    sans-serif;
+}
+h1 {
+  font-size: 2rem;
+  text-align: center;
+}
+.bg-gray {
+  background-color: #333;
+}
+.bg-dark{
+  background-color: #000;
+}
+.btn-primary {
+  display: inline-block;
+  background-color: #fff;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #000;
+  transition: 0.3s;
+  cursor: pointer;
+  &:hover {
+    background-color: #eee;
   }
 }
 </style>
