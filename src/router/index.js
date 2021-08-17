@@ -71,8 +71,7 @@ const routes = [
   {
     path: '/cart',
     name: 'Cart',
-    component: () =>
-      import(/* webpackChunkName: "cart" */ '../views/Cart.vue'),
+    component: () => import(/* webpackChunkName: "cart" */ '../views/Cart.vue'),
     meta: {
       title: 'SKILL | 你想的到的球技都在這裡',
     },
@@ -89,8 +88,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
+  mode: 'hash',
+  base: '/Vue_e-commerce',
   routes,
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 }
