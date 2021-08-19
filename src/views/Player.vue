@@ -33,10 +33,10 @@
               >
                 <i class="fas fa-cart-plus"></i>
               </router-link>
-              <span class="price">
-                <del>原價 $ 99,999</del>
+              <span class="originPrice">
+                <del>原價 $ 99,998</del>
                 <br />
-                NT $ 999
+                NT $ 9,998
               </span>
             </p>
           </div>
@@ -71,8 +71,8 @@ export default {
             '絕對蓋不到的天勾',
             '紮實的運球技術',
           ],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -85,8 +85,8 @@ export default {
           description:
             'NBA歷史上首位全票通過的年度MVP，NBA歷史上最偉大的射手。3次NBA總冠軍、2次NBA年度MVP、7次入選NBA最佳陣容、1次NBA抄截王，單季最多三分球命中。',
           skills: ['萬眾矚目的Logo Shot', '神準的投射能力', '紮實的運球技術'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -103,8 +103,8 @@ export default {
             '精準的傳球技巧',
             '紮實的運球技術',
           ],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -117,8 +117,8 @@ export default {
           description:
             '最偉大的控球後衛之一，運球教科書。2次NBA總冠軍、1次NBA總決賽最有價值球員、1次NBA助攻王、5次NBA最佳陣容、12次NBA全明星球員。',
           skills: ['矮個子如何防守', '紮實的運球技術'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -131,8 +131,8 @@ export default {
           description:
             '生涯的助攻數和抄截數都位居聯盟第一名。11次NBA最佳陣容、9次NBA助攻王、2次NBA抄截王、5次NBA最佳防守陣容、10次NBA全明星球員。',
           skills: ['精準的傳球技巧', '矮個子如何防守', '擋拆的千變萬化'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -151,8 +151,8 @@ export default {
             '最致命決殺球',
             '使對手失去戰鬥能力的垃圾話能力',
           ],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -170,8 +170,8 @@ export default {
             '包羅萬象的空中灌籃',
             '最致命的決殺球',
           ],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -184,8 +184,8 @@ export default {
           description:
             'NBA歷史上的第一位輸隊隊伍獲得NBA總冠軍賽的MVP。1次NBA總冠軍、1次NBA得分王、9次NBA助攻王、12次NBA最佳陣容、4次NBA最佳防守陣容、14次NBA全明星球員',
           skills: ['穩定的投籃', '領導球隊', '紮實的運球技術'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -198,8 +198,8 @@ export default {
           description:
             '美國時代雜誌評為全美50大型男之一。3次NBA總冠軍、1次NBA總冠軍賽最有價值球員、8次NBA最佳陣容、3次NBA最佳防守陣容、13次NBA全明星球員。',
           skills: ['遜如閃電的快攻', '撕裂防線的切入'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -216,8 +216,8 @@ export default {
             '紮實的運球技術',
             '穩定的中距離',
           ],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
 
@@ -231,8 +231,8 @@ export default {
           description:
             '公認為NBA歷史上最偉大球員之一。4座NBA總冠軍、4次NBA最有價值球員、4次總決賽最有價值球員以及兩枚奧運金牌、16次NBA最佳陣容、6次NBA年度防守隊伍、17次入選全明星賽，NBA季後賽歷史得分王、例行賽歷史第3高總得分與第8高總助攻數。',
           skills: ['如何成為一位全能的球員', '領導球隊', '無法阻擋的坦克切入'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -250,8 +250,8 @@ export default {
             '神準的投籃能力',
             '使對手失去戰鬥能力的垃圾話能力',
           ],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -269,8 +269,8 @@ export default {
             '神準的投籃能力',
             '最致命的決殺球',
           ],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -283,8 +283,8 @@ export default {
           description:
             '世人稱之「天下第二人」。6座NBA總冠軍、1次NBA抄截王、7次NBA年度最佳陣容、8次NBA年度防守第一隊、7次入選全明星賽。',
           skills: ['密不透風的防守', '全能的身手'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -297,8 +297,8 @@ export default {
           description:
             '史上第三位擁有總決賽MVP與最佳防守球員獎項的球員。2座NBA總冠軍、2次總決賽最有價值球員、2次NBA年度最佳防守球員、1次NBA抄截王、5次NBA年度最佳陣容、6次NBA年度防守最佳陣容、5次入選全明星賽。',
           skills: ['密不透風的防守', '穩定的中距離'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -311,8 +311,8 @@ export default {
           description:
             '公認為史上最偉大球員之一。5座NBA總冠軍、3次總決賽最有價值球員、2次NBA最有價值球員、15次NBA年度最佳陣容、15次NBA年度防守最佳陣容、15次入選全明星賽。',
           skills: ['密不透風的防守', '穩定的打板球'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -329,8 +329,8 @@ export default {
             '全能的身手',
             '使對手失去戰鬥能力的垃圾話能力',
           ],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -343,8 +343,8 @@ export default {
           description:
             '公認為是史上最強壯的大前鋒，NBA史上總得分第二位。2次NBA最有價值球員、13次NBA年度最佳陣容、4次NBA年度防守最佳陣容、14次入選全明星賽。',
           skills: ['擋拆的千變萬化', '穩定的中距離', '保持球季健康的秘訣'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -357,8 +357,8 @@ export default {
           description:
             '公認為NBA史上最偉大的歐洲球員。1座NBA總冠軍、1次NBA最有價值球員、12次NBA年度最佳陣容、14次入選全明星賽。',
           skills: ['神準的投籃', '絕對蓋不到的金雞獨立投籃', '領導球隊'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -371,8 +371,8 @@ export default {
           description:
             '公認為是聯盟歷史中最具統治力的大前鋒之一。1次NBA最有價值球員、1次NBA籃板王、11次NBA年度最佳陣容、9次入選全明星賽。',
           skills: ['籃板卡位', '低位進攻的訣竅'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -385,8 +385,8 @@ export default {
           description:
             '首位打滿20個NBA賽季的球員。6座NBA總冠軍、6次NBA年度最有價值球員、2次NBA總決賽最有價值球員、15次入選NBA最佳陣容、11次入選NBA最佳防守陣容、19次入選NBA全明星賽。聯盟生涯例行賽得分第一名。',
           skills: ['絕對蓋不到的天勾', '保持球季健康的秘訣'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -399,8 +399,8 @@ export default {
           description:
             'NBA歷史上總阻攻記錄的保持人。2座NBA總冠軍、1次NBA年度最有價值球員、2次NBA總決賽最有價值球員、2次NBA最佳防守球員、12次入選NBA最佳陣容、9次入選NBA最佳防守陣容、12次入選NBA全明星賽。',
           skills: ['眼花撩亂的夢幻步伐', '封阻球的時機'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -413,8 +413,8 @@ export default {
           description:
             '公認為是聯盟歷史中最偉大的長人中鋒球員之一。4座NBA總冠軍、1次NBA年度最有價值球員、3次NBA總決賽最有價值球員、13次入選NBA最佳陣容、3次入選NBA最佳防守陣容、15次入選NBA全明星賽。',
           skills: ['包夾也沒用的低位進攻', '強大的籃板爭搶能力'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -427,8 +427,8 @@ export default {
           description:
             '公認為是NBA歷史上最好的球員之一，創下NBA史上空前的八連霸的紀錄。11座NBA總冠軍、5次NBA年度最有價值球員、3次NBA總決賽最有價值球員、4次NBA籃板王、11次入選NBA最佳陣容、1次入選NBA最佳防守陣容、12次入選NBA全明星賽。',
           skills: ['奪冠的秘訣', '強大的籃板爭搶能力', '防守大個子的能力'],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
         {
@@ -445,8 +445,8 @@ export default {
             '無解的得分能力',
             '強大的籃板爭搶能力',
           ],
-          price: 99998,
-          originPrice: 9998,
+          originPrice: 99998,
+          price: 9998,
           count: 0,
         },
       ],

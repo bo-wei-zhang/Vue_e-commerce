@@ -34,7 +34,7 @@
         <li class="member cart">
           <router-link :to="{ name: 'Cart' }">
             <i class="fas fa-shopping-cart"></i>
-            <span> {{ cartItems.length }}</span>
+            <span>{{ cartItems.length }}</span>
           </router-link>
         </li>
       </ul>
@@ -78,16 +78,22 @@ export default {
     }
   },
   methods: {
-    // changeActive(index) {
-    //   console.log(index)
-    //   this.links.forEach((link) => (link.isActive = false))
-    //   this.links[index].isActive = true
-    // },
+    getLocalData() {
+      window.setInterval(
+        () =>
+          (this.cartItems =
+            JSON.parse(localStorage.getItem('cartItems')) || []),
+        3000
+      )
+    },
   },
   created() {
     this.cartItems = JSON.parse(localStorage.getItem('cartItems')) || []
     return this.cartItems
   },
+  mounted(){
+    this.getLocalData()
+  }
 }
 </script>
 
@@ -108,7 +114,7 @@ header {
     align-items: center;
 
     @media screen and (max-width: 767px) {
-      overflow: hidden;      
+      overflow: hidden;
     }
   }
   #menu-control {
@@ -164,7 +170,7 @@ header {
   }
   .nav-link {
     @media screen and (max-width: 767px) {
-      padding: 15px;      
+      padding: 15px;
     }
   }
 
@@ -208,6 +214,9 @@ header {
       top: 5%;
       right: 5%;
     }
+  }
+  .fa-shopping-cart {
+    padding-right: 10px;
   }
 }
 </style>

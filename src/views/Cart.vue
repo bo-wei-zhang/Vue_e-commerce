@@ -24,8 +24,8 @@
               <span class="cart-count"> {{ cartItem.count }} </span>
               <i class="fas fa-plus" @click="plusCount(cartItem)"></i>
             </div>
-            <div class="remove-cart-item">
-              <i class="far fa-trash-alt" @click="removeCartItem(cartItem)"></i>
+            <div class="remove-cart-item">             
+              <i class="far fa-trash-alt" @click="removeCartItem(cartItem)"></i>             
             </div>
           </div>
         </li>
@@ -35,7 +35,7 @@
         <button class="checkout">結帳</button>
       </div>
     </ul>
-    <div class="no-cart-items bg-dark flex-content" v-else>
+    <div class="no-cart-items bg-dark" v-else>
       <h1>您的購物車內沒有商品</h1>
       <router-link class="keep-shopping" :to="{ name: 'Product' }"
         >繼續購物</router-link
@@ -48,11 +48,13 @@
 <script>
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
+import Product from './Product/Product.vue'
 
 export default {
   components: {
     Header,
     Footer,
+    Product,
   },
   data() {
     return {
@@ -100,7 +102,7 @@ export default {
           return pre + groupOf3Digital.replace(/\d{3}/g, ',$&')
         })
     },
-  },
+  },  
   methods: {
     plusCount(cartItem) {
       cartItem.count++
@@ -114,6 +116,10 @@ export default {
     removeCartItem(cartItem) {
       if (!confirm('確定要移除嗎?')) return
       cartItem.count = 0
+      this.cartItems = this.cartItems.filter(
+        (cItem) => cartItem.id !== cItem.id
+      )
+
       localStorage.setItem('cartItems', JSON.stringify(this.cartItems))
     },
   },
@@ -121,6 +127,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .cart-items {
   padding: 35px 70px;
   justify-content: space-around;
@@ -136,6 +143,10 @@ export default {
   }
   .fas {
     cursor: pointer;
+    
+  }
+  .far{
+    color: #fff;
   }
   .cart-item {
     color: #fff;
@@ -148,18 +159,18 @@ export default {
     }
   }
   .cart-name {
-    padding: 15px 0 25px;    
+    padding: 15px 0 25px;
   }
   .cart-controller {
     @media screen and (max-width: 768px) {
       width: 50%;
     }
   }
-  .cart-price {   
+  .cart-price {
     padding: 0 50px;
     font-size: 1.5rem;
     letter-spacing: 1.5px;
-    @media screen and (max-width:768px){
+    @media screen and (max-width: 768px) {
       width: 100%;
     }
   }
@@ -217,15 +228,19 @@ export default {
 }
 .no-cart-items {
   color: #fff;
-  padding: 50px;
+  padding: 50px;  
   justify-content: center;
+  min-height: 100vh;
   h1 {
     font-size: 2rem;
     width: 100%;
   }
   .keep-shopping {
-    margin: 25px 0;
-    padding: 15px 35px;
+    display: block;
+    width: 150px;
+    text-align: center;
+    margin: 75px auto 25px;
+    padding: 15px;
     color: #6dd7bb;
     border: 1px solid #6dd7bb;
     font-size: 1.2rem;

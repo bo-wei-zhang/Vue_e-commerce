@@ -40,7 +40,7 @@
                   @click="minusCount(products[id - 1])"
                 ></i>
               </div>
-              <span>{{ products[id - 1].count }}</span>
+              <span>{{ products[id - 1].countShow }}</span>
               <div class="bg-round">
                 <i class="fas fa-plus" @click="plusCount(products[id - 1])"></i>
               </div>
@@ -92,7 +92,9 @@
             <div class="card-content">
               {{ reccommend.name }}
               <p>
-                <del>原價  {{ reccommend.price | commaFormat | priceFormat }}</del>
+                <del
+                  >原價 {{ reccommend.price | commaFormat | priceFormat }}</del
+                >
                 NT {{ reccommend.originPrice | commaFormat | priceFormat }}
               </p>
             </div>
@@ -131,6 +133,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 2,
@@ -145,6 +148,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 3,
@@ -163,6 +167,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 4,
@@ -177,6 +182,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 5,
@@ -191,6 +197,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 6,
@@ -211,6 +218,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 7,
@@ -230,6 +238,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 8,
@@ -244,6 +253,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 9,
@@ -258,6 +268,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 10,
@@ -276,6 +287,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
 
         {
@@ -291,6 +303,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 12,
@@ -310,6 +323,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 13,
@@ -329,6 +343,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 14,
@@ -343,6 +358,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 15,
@@ -357,6 +373,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 16,
@@ -371,6 +388,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 17,
@@ -389,6 +407,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 18,
@@ -403,6 +422,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 19,
@@ -417,6 +437,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 20,
@@ -431,6 +452,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 21,
@@ -445,6 +467,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 22,
@@ -459,6 +482,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 23,
@@ -473,6 +497,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 24,
@@ -487,6 +512,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
         {
           id: 25,
@@ -505,6 +531,7 @@ export default {
           price: 9998,
           originPrice: 99998,
           count: 1,
+          countShow: 1,
         },
       ],
       reccommends: [],
@@ -559,7 +586,7 @@ export default {
         if (product.id === cartItem.id) {
           //檢查購物車裡有無此項商品
           isNew = false
-          cartItem.count++
+          cartItem.count+= product.countShow
         }
       })
 
@@ -571,11 +598,11 @@ export default {
       localStorage.setItem('cartItems', JSON.stringify(this.cartItems))
     },
     plusCount(product) {
-      product.count++
+      product.countShow++
     },
     minusCount(product) {
       if (product.count <= 1) return
-      product.count--
+      product.countShow--
     },
   },
 }
