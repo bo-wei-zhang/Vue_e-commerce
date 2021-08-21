@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header />
+    <Header />    
     <div
       class="banner flex-content"
       :style="{ backgroundImage: `url(${banners[0].imgSrc})` }"
@@ -51,8 +51,9 @@
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
 
+
 export default {
-  components: { Header, Footer },
+  components: { Header, Footer, },
   props: ['position'],
   data() {
     return {
@@ -469,6 +470,7 @@ export default {
         },
       ],
       cartItems: [],
+      isShow: false,
     }
   },
   watch: {
@@ -495,7 +497,10 @@ export default {
       } //將新的商品新增到購物車裡
 
       localStorage.setItem('cartItems', JSON.stringify(this.cartItems))
+      
+       this.$toastr.s("此商品已加入購物車", "SKILL");
     },
+    
   },
   created() {
     this.products = this.products.filter(

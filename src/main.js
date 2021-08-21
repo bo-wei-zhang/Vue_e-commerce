@@ -1,13 +1,29 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-// import VueLoading from 'vue-loading-overlay';
-// import 'vue-loading-overlay/dist/vue-loading.css';
+// import plugin
+import VueToastr from 'vue-toastr'
+// use plugin
+Vue.use(VueToastr, {
+  /* OverWrite Plugin Options if you need */
+  defaultTimeout: 3000,
+  defaultProgressBar: false,
+  defaultProgressBarValue: 0,
+  defaultType: 'success',
+  defaultPosition: 'toast-top-right',
+  defaultCloseOnHover: false,
+  defaultStyle: {
+    'background-color': '#333',
+    color: '#fff',
+    padding: '20px 15px 20px 50px',
+    'margin-bottom': '25px'
+    
+  },
+})
 
 Vue.config.productionTip = false
-//Vue.component('VueLoading', VueLoading)
 
 new Vue({
   router,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount('#app')

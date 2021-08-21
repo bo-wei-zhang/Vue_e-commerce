@@ -1,7 +1,9 @@
 <template>
   <footer>
     <div class="container flex-content">
-      <img src="../assets/logo.jpg" alt="logo" />
+      <router-link to="/">
+        <img src="../assets/logo.jpg" alt="logo" />
+      </router-link>
       <br />
       <div class="txt flex-content">
         <span class="copyright">© 2021</span>
@@ -28,28 +30,31 @@ footer {
     margin: 0 auto;
     justify-content: space-around;
     color: rgba(255, 255, 255, 0.6);
-     @media screen and (max-width: 768px){
-       flex-direction: column;
-       align-items: center;
-     }
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  a {
+    width: 10%;
+    @media screen and (max-width: 768px) {
+      width: 30%;
+    }
   }
   img {
-    width: 10%;
-     @media screen and (max-width: 768px){
-       width: 30%;
-     }
+    width: 100%;
   }
- .txt{
-    @media screen and (max-width: 768px){
+  .txt {
+    @media screen and (max-width: 768px) {
       margin-top: 25px;
-     justify-content: center;
-     text-align: center;
+      justify-content: center;
+      text-align: center;
     }
- }
+  }
   .copyright {
     margin-bottom: 15px;
   }
-  .follow {    
+  .follow {
     letter-spacing: 1px;
     width: 100%;
   }

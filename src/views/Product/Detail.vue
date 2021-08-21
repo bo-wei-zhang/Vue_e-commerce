@@ -1,107 +1,115 @@
 <template>
   <div>
     <Header />
-    <section class="product-detail">
-      <div class="flex-content container">
-        <div
-          class="product-img"
-          :style="{ backgroundImage: `url(${products[id - 1].imgSrc})` }"
-        ></div>
-        <div class="product-description">
-          <h1>【熱銷】{{ products[id - 1].name }}</h1>
-          <h3>
-            球隊： {{ products[id - 1].team }} 位置：
-            {{ products[id - 1].position }}
-          </h3>
-          <p>
-            {{ products[id - 1].description }}
-          </p>
-          <div class="price flex-content">
-            <del
-              >原價 $
-              {{
-                products[id - 1].originPrice | commaFormat | priceFormat
-              }}</del
-            >
-            <span class="price-no"
-              >優惠價 $
-              {{ products[id - 1].price | commaFormat | priceFormat }}</span
-            >
-          </div>
-          <div class="product-info">
-            <h3>您可獲得的資訊有：</h3>
-            <p v-for="skill in products[id - 1].skills" :key="skill">
-              {{ skill }}
+    <main>
+      <section class="product-detail">
+        <div class="flex-content container">
+          <div
+            class="product-img"
+            :style="{ backgroundImage: `url(${products[id - 1].imgSrc})` }"
+          ></div>
+          <div class="product-description">
+            <h1>【熱銷】{{ products[id - 1].name }}</h1>
+            <h3>
+              球隊： {{ products[id - 1].team }} 位置：
+              {{ products[id - 1].position }}
+            </h3>
+            <p>
+              {{ products[id - 1].description }}
             </p>
-            <div class="product-amount flex-content">
-              <div class="bg-round">
-                <i
-                  class="fas fa-minus"
-                  @click="minusCount(products[id - 1])"
-                ></i>
+            <div class="price flex-content">
+              <del
+                >原價 $
+                {{
+                  products[id - 1].originPrice | commaFormat | priceFormat
+                }}</del
+              >
+              <span class="price-no"
+                >優惠價 $
+                {{ products[id - 1].price | commaFormat | priceFormat }}</span
+              >
+            </div>
+            <div class="product-info">
+              <h3>您可獲得的資訊有：</h3>
+              <p v-for="skill in products[id - 1].skills" :key="skill">
+                {{ skill }}
+              </p>
+              <div class="flex-content jc-sb">
+                <div class="product-amount flex-content">
+                  <div class="bg-round flex-content">
+                    <i
+                      class="fas fa-minus"
+                      @click="minusCount(products[id - 1])"
+                    ></i>
+                  </div>
+                  <span>{{ products[id - 1].countShow }}</span>
+                  <div class="bg-round flex-content">
+                    <i
+                      class="fas fa-plus"
+                      @click="plusCount(products[id - 1])"
+                    ></i>
+                  </div>
+                </div>
+                <button class="buy-now" @click="addToCart(products[id - 1])">
+                  立即購買
+                </button>
               </div>
-              <span>{{ products[id - 1].countShow }}</span>
-              <div class="bg-round">
-                <i class="fas fa-plus" @click="plusCount(products[id - 1])"></i>
-              </div>
-              <button class="buy-now" @click="addToCart(products[id - 1])">
-                立即購買
-              </button>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <section class="shopping-instruction">
-      <div class="container">
-        <h3 class="shopping-instruction-title">購物說明</h3>
-        <p>
-          若您具有法人身份為常態性且大量購買者，或有特殊作業需求，建議您可洽詢「企業採購」。
-        </p>
-        <h3 class="returning-instruction-title">退換貨說明</h3>
-        <p>
-          會員所購買的商品均享有到貨十天的猶豫期（含例假日）。退回之商品必須於猶豫期內寄回。
-          <br />
-          辦理退換貨時，商品必須是全新狀態與完整包裝(請注意保持商品本體、
-          配件、贈品、保證書、
-          原廠包裝及所有附隨文件或資料的完整性，切勿缺漏任何配件或損毀原廠外盒)。
-          <br />
-          退回商品無法回復原狀者，恐將影響退貨權益或需負擔部分費用。
-          <br />
-          訂購本商品前請務必詳閱商品退換貨原則。
-        </p>
-      </div>
-    </section>
-    <section class="reccommendation ">
-      <div class="container">
-        <h3>其他人也看了...</h3>
-        <div class="reccommends">
-          <router-link
-            class="reccommend card"
-            v-for="reccommend in reccommends"
-            :key="reccommend.id"
-            :to="{
-              name: 'Product-Detail',
-              params: { id: reccommend.id },
-            }"
-          >
-            <div
-              class="card-top-img"
-              :style="{ backgroundImage: `url(${reccommend.imgSrc})` }"
-            ></div>
-            <div class="card-content">
-              {{ reccommend.name }}
-              <p>
-                <del
-                  >原價 {{ reccommend.price | commaFormat | priceFormat }}</del
-                >
-                NT {{ reccommend.originPrice | commaFormat | priceFormat }}
-              </p>
-            </div>
-          </router-link>
+      </section>
+      <section class="shopping-instruction">
+        <div class="container">
+          <h3 class="shopping-instruction-title">購物說明</h3>
+          <p>
+            若您具有法人身份為常態性且大量購買者，或有特殊作業需求，建議您可洽詢「企業採購」。
+          </p>
+          <h3 class="returning-instruction-title">退換貨說明</h3>
+          <p>
+            會員所購買的商品均享有到貨十天的猶豫期（含例假日）。退回之商品必須於猶豫期內寄回。
+            <br />
+            辦理退換貨時，商品必須是全新狀態與完整包裝(請注意保持商品本體、
+            配件、贈品、保證書、
+            原廠包裝及所有附隨文件或資料的完整性，切勿缺漏任何配件或損毀原廠外盒)。
+            <br />
+            退回商品無法回復原狀者，恐將影響退貨權益或需負擔部分費用。
+            <br />
+            訂購本商品前請務必詳閱商品退換貨原則。
+          </p>
         </div>
-      </div>
-    </section>
+      </section>
+      <section class="reccommendation ">
+        <div class="container">
+          <h3>其他人也看了...</h3>
+          <div class="reccommends">
+            <router-link
+              class="reccommend card"
+              v-for="reccommend in reccommends"
+              :key="reccommend.id"
+              :to="{
+                name: 'Product-Detail',
+                params: { id: reccommend.id },
+              }"
+            >
+              <div
+                class="card-top-img"
+                :style="{ backgroundImage: `url(${reccommend.imgSrc})` }"
+              ></div>
+              <div class="card-content">
+                {{ reccommend.name }}
+                <p>
+                  <del
+                    >原價
+                    {{ reccommend.price | commaFormat | priceFormat }}</del
+                  >
+                  NT {{ reccommend.originPrice | commaFormat | priceFormat }}
+                </p>
+              </div>
+            </router-link>
+          </div>
+        </div>
+      </section>
+    </main>
     <Footer />
   </div>
 </template>
@@ -536,6 +544,7 @@ export default {
       ],
       reccommends: [],
       cartItems: [],
+      isShow: false,
     }
   },
   created() {
@@ -586,7 +595,7 @@ export default {
         if (product.id === cartItem.id) {
           //檢查購物車裡有無此項商品
           isNew = false
-          cartItem.count+= product.countShow
+          cartItem.count += product.countShow
         }
       })
 
@@ -596,12 +605,14 @@ export default {
       } //將新的商品新增到購物車裡
 
       localStorage.setItem('cartItems', JSON.stringify(this.cartItems))
+
+      this.$toastr.s('此商品已加入購物車', 'SKILL')
     },
     plusCount(product) {
       product.countShow++
     },
     minusCount(product) {
-      if (product.count <= 1) return
+      if (product.countShow <= 1) return
       product.countShow--
     },
   },
@@ -610,7 +621,8 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  width: 1080px;
+  max-width: 1080px;
+  width: 90%;
   margin: 0 auto;
   justify-content: space-between;
   color: #fff;
@@ -620,15 +632,35 @@ export default {
   padding: 35px 0;
   background-color: #000;
 
+  @media screen and (max-width: 768px) {
+    padding: 0;
+  }
+
+  .container {
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      padding: 0;
+    }
+  }
   .product-img {
     width: 40%;
     height: 500px;
-    background-position: center 20%;
+    background-position: center 10%;
     background-size: cover;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      height: 350px;
+    }
   }
   .product-description {
     width: 50%;
     text-align: center;
+
+    @media screen and (max-width: 768px) {
+      padding-top: 25px;
+      width: 100%;
+    }
   }
   h3 {
     font-size: 1.6rem;
@@ -650,6 +682,10 @@ export default {
     color: rgb(212, 119, 42);
     font-size: 2rem;
     font-weight: 700;
+
+    @media screen and (max-width: 768px) {
+      padding-top: 15px;
+    }
   }
   .product-info {
     padding: 30px 0;
@@ -677,9 +713,12 @@ export default {
     }
     .bg-round {
       border: #fff 2px solid;
-      border-radius: 50%;
-      padding: 5px;
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
       margin: 10px;
+      justify-content: center;
+      align-items: center;
       cursor: pointer;
       transition: 0.3s;
       &:hover {
@@ -689,9 +728,22 @@ export default {
         color: #000;
       }
     }
+    .jc-sb {
+      justify-content: space-between;
+
+      @media screen and (max-width: 768px) {
+        justify-content: center;
+      }
+    }
+    .product-amount {
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 0;
+      }
+    }
     .buy-now {
-      padding: 15px 30px;
-      margin-left: 150px;
+      padding: 5px 20px 10px;
       border: 1px solid #fff;
       color: #fff;
       font-size: 1.5rem;
@@ -732,6 +784,7 @@ export default {
 .reccommendation {
   background-color: #000;
   padding-bottom: 35px;
+  overflow: hidden;
 
   h3 {
     color: rgb(212, 119, 42);
@@ -742,18 +795,34 @@ export default {
   }
   .container {
     padding: 35px;
+    margin: 0 auto;
+
+    @media screen and (max-width: 768px) {
+      padding: 0;
+    }
   }
   .reccommends {
     overflow-x: scroll;
     overflow-y: hidden;
     margin: auto;
     white-space: nowrap;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
   }
   .card {
     width: 300px;
     height: 350px;
     padding: 0 20px;
     display: inline-block;
+
+    @media screen and (max-width: 768px) {
+      display: block;
+      margin-bottom: 25px;
+      padding: 35px 20px;
+      margin: 0 auto;
+    }
   }
   .card-top-img {
     height: 100%;

@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-
+    
 # 当发生错误时中止脚本
 set -e
 
@@ -14,7 +14,7 @@ cd dist
 
 git init
 git add -A
-git commit -m 'options'
+git commit -m 'footer logo'
 
 # 部署到 https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master

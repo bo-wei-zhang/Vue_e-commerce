@@ -257,6 +257,13 @@ export default {
   cursor: pointer;
   position: relative;
 
+  @media screen and(max-width:768px) {
+    display: block;
+    width: 90%;
+    margin: auto;
+    height: 450px;
+  }
+
   &:hover > .player-cover {
     height: calc(100% - 30px);
     opacity: 1;
@@ -264,6 +271,9 @@ export default {
 
   &:first-child {
     margin-left: 5px;
+    @media screen and(max-width:768px) {
+      margin: auto;
+    }
   }
 
   img {
@@ -329,9 +339,9 @@ export default {
       padding: 250px 0;
       margin: 0 auto;
       @media screen and (max-width: 768px) {
-      width: 100%;
-      padding: 150px 0;
-    }
+        width: 100%;
+        padding: 150px 0;
+      }
     }
 
     &:last-child > .card-content {
@@ -419,10 +429,10 @@ export default {
     width: 50%;
     color: #eee;
     padding-top: 50px;
-     @media screen and (max-width: 768px){
-       width: 100%;
-       margin: 0 auto;
-     }
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      margin: 0 auto;
+    }
   }
   .card {
     width: 50%;
@@ -430,9 +440,9 @@ export default {
     &:nth-child(even) {
       margin-top: 60px;
     }
-     @media screen and (max-width: 768px){
-       width: 100%;
-     }
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
   }
   h3 {
     font-size: 2rem;
@@ -463,10 +473,10 @@ export default {
     width: 50%;
     height: 700px;
     padding: 0 25px;
-     @media screen and (max-width: 768px){
-       width: 100%;
-       height: 550px;
-     }
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      height: 550px;
+    }
     img {
       height: 100%;
     }
@@ -498,18 +508,18 @@ export default {
     width: 90%;
     margin: 0 auto;
     justify-content: space-evenly;
-     @media screen and (max-width: 768px){
-       flex-direction: column;
-     }
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+    }
   }
   .hot-sell-product {
     width: 25%;
     margin: 10px 0;
     cursor: pointer;
     color: #fff;
-     @media screen and (max-width: 768px){
-       width: 100%;
-     }
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
   }
   img {
     width: 90%;

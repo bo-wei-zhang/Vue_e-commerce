@@ -1,12 +1,5 @@
 <template>
   <div>
-    <!-- <loading
-      :active="isLoading"
-      :can-cancel="true"
-      :on-cancel="onCancel"
-      :is-full-page="fullPage"
-    /> -->
-
     <Header />
     <!-- {{ productsInCart }} -->
     <section class="product-list flex-content">
@@ -70,7 +63,8 @@ export default {
   components: { Header, Footer },
   data() {
     return {
-      isLoading: false,
+      isShow: false,
+      adding: [],
       products: [
         {
           id: 1,
@@ -793,7 +787,7 @@ export default {
       cartItems: [],
     }
   },
- 
+
   methods: {
     swapCategory(category) {
       console.log(category)
@@ -822,7 +816,6 @@ export default {
       })
     },
     addToCart(product) {
-      this.isLoading = true
       let isNew = true
       if (this.cartItems == null) this.cartItems.push(product)
 
@@ -839,21 +832,12 @@ export default {
         this.cartItems.push(product)
       } //將新的商品新增到購物車裡
 
-      localStorage.setItem('cartItems', JSON.stringify(this.cartItems))
-    },
-    del() {
-      localStorage.removeItem('cartItems')
+      localStorage.setItem('cartItems', JSON.stringify(this.cartItems))     
+     
+     this.$toastr.s("此商品已加入購物車", "SKILL");
     },
   },
-  // computed: {
-  //   productsInCart() {
-  //     return (
-  //       this.products
-  //         // 只顯示購買數量 > 0 的項目
-  //         .filter((p) => p.count > 0)
-  //     )
-  //   },
-  // },
+
   created() {
     this.cartItems = JSON.parse(localStorage.getItem('cartItems')) || []
     return this.cartItems

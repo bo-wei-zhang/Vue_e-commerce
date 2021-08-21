@@ -91,9 +91,9 @@ export default {
     this.cartItems = JSON.parse(localStorage.getItem('cartItems')) || []
     return this.cartItems
   },
-  mounted(){
+  mounted() {
     this.getLocalData()
-  }
+  },
 }
 </script>
 

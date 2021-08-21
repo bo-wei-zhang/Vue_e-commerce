@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="slide-container">
     <transition-group
       :name="direction ? 'slide' : 'slide-invert'"
       tag="ul"
@@ -18,7 +18,11 @@
             熱賣商品
             <small>【熱銷】{{ slide.name }}</small>
           </h2>
-          <a class="buy-now btn-primary" to="/about">馬上買 buy now</a>
+          <router-link
+            class="buy-now btn-primary"
+            :to="{ name: 'Product-Detail', params: { id: slide.id } }"
+            >馬上買 buy now</router-link
+          >
         </div>
       </li>
       <ul class="slide-controls flex-content" key="slide-control">
@@ -48,16 +52,19 @@ export default {
       direction: true,
       slides: [
         {
+          id: 7,
           name: 'Kobe Brant',
           imgSrc: bannerHomeKb,
           isActive: true,
         },
         {
+          id: 6,
           name: 'Michael Jordan',
           imgSrc: bannerHomeMj,
           isActive: false,
         },
         {
+          id: 11,
           name: 'Lebron James',
           imgSrc: bannerHomeLbj,
           isActive: false,
@@ -100,14 +107,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.slide-container{
+  position: relative;
+}
 .slides {
   width: 100%;
   height: 100vh;
   overflow: hidden;
   position: relative;
-   @media screen and (max-width: 768px){
-     height: 70vh;
-   }
+  @media screen and (max-width: 768px) {
+    height: 50vh;
+  }
 }
 .slide {
   width: 100%;
@@ -127,9 +137,9 @@ export default {
     bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
-     @media screen and (max-width: 768px){
-       width: 75%;
-     }
+    @media screen and (max-width: 768px) {
+      width: 75%;
+    }
   }
   .hot-sell-title {
     color: #fff;
@@ -137,7 +147,7 @@ export default {
     font-weight: 500;
     text-align: center;
     width: 100%;
-    @media screen and (max-width:768px) {
+    @media screen and (max-width: 768px) {
       font-size: 3em;
     }
     small {
@@ -148,54 +158,55 @@ export default {
   }
   .buy-now {
     margin: 25px 0 20px;
-  }  
+  }
 }
 
 .slide-controls {
-    width: 100%;
-    justify-content: center;
-    align-items: flex-end;
-    position: absolute;
-    bottom: 3%;   
-  }
-  .slide-control {
-    width: 35px;
-    height: 5px;
-    background-color: rgba(255, 255, 255, 0.6);
-    margin: 10px;
-    cursor: pointer;
-    &:hover {
-      background-color: #fff;
-    }
-  }
-  .controlActive {
+  width: 100%;
+  justify-content: center;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 3%;
+}
+.slide-control {
+  width: 35px;
+  height: 5px;
+  background-color: rgba(255, 255, 255, 0.6);
+  margin: 10px;
+  cursor: pointer;
+  &:hover {
     background-color: #fff;
   }
+}
+.controlActive {
+  background-color: #fff;
+}
 
 .fas {
   font-size: 2rem;
   color: rgba(255, 255, 255, 0.6);
   position: absolute;
-  top: calc(50% + 75px);
+  top: 50%;
+  z-index: 0;
   transform: translateY(-50%);
   cursor: pointer;
   &:hover {
     color: #fff;
-  }
+  } 
 }
 .fa-chevron-left {
   left: 7.5%;
   transform: translateX(-10%);
-   @media screen and (max-width: 768px){
-     left: 2.5%;
-   }
+  @media screen and (max-width: 768px) {
+    left: 2.5%;
+  }
 }
 .fa-chevron-right {
   right: 7.5%;
   transform: translateX(-10%);
-   @media screen and (max-width: 768px){
-     right: 2.5%;
-   }
+  @media screen and (max-width: 768px) {
+    right: 2.5%;
+  }
 }
 .slide-enter-active,
 .slide-leave-active,

@@ -45,7 +45,7 @@
           <li
             class="team-member"
             v-for="teamMember in teamMembers"
-            :key="teamMember.title"
+            :key="teamMember.title"                    
           >
             <div
               class="member-img"
