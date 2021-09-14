@@ -34,9 +34,9 @@
                 <i class="fas fa-cart-plus"></i>
               </router-link>
               <span class="originPrice">
-                <del>原價 $ 99,998</del>
+                <del>原價 {{product.originPrice}}</del>
                 <br />
-                NT $ 9,998
+                NT $ {{product.price}}
               </span>
             </p>
           </div>

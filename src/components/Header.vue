@@ -5,26 +5,26 @@
       <label for="menu-control">
         <span class="hamburger-menu"></span>
       </label>
-      <div class="logo-center flex-content">
+
+      <ul class="nav-links flex-content">
         <router-link to="/">
           <h1 class="logo">
             <img src="../assets/logo.jpg" alt="logo" />
           </h1>
         </router-link>
-        <ul class="nav-links flex-content">
-          <li class="nav-link" v-for="link in links" :key="link.name">
-            <router-link
-              :to="{ name: link.route, params: { position: link.position } }"
-              >{{ link.name }}
-            </router-link>
-          </li>
-          <li class="nav-link user-mobile">
-            <router-link :to="{ name: 'Member' }">
-              會員
-            </router-link>
-          </li>
-        </ul>
-      </div>
+        <li class="nav-link" v-for="link in links" :key="link.name">
+          <router-link
+            :to="{ name: link.route, params: { position: link.position } }"
+            >{{ link.name }}
+          </router-link>
+        </li>
+        <li class="nav-link user-mobile">
+          <router-link :to="{ name: 'Member' }">
+            會員
+          </router-link>
+        </li>
+      </ul>
+
       <ul class="members flex-content">
         <li class="member user">
           <router-link :to="{ name: 'Member' }">
@@ -106,21 +106,19 @@ header {
   color: #fff;
   padding: 10px;
   font-size: 1.3rem;
-  @media screen and (max-width: 767px) {
-    padding: 0;
-  }
+ 
   nav {
     justify-content: space-between;
     align-items: center;
 
     @media screen and (max-width: 767px) {
-      overflow: hidden;
+      overflow: hidden;       
     }
   }
   #menu-control {
     display: none;
   }
-  #menu-control:checked ~ .logo-center > .nav-links {
+  #menu-control:checked ~ .nav-links {
     @media screen and (max-width: 767px) {
       height: 364px;
     }
@@ -163,9 +161,10 @@ header {
 
     @media screen and (max-width: 767px) {
       display: block;
-      margin-top: 90px;
       background-color: #000;
-      height: 0px;
+      width: 100vw;
+      height: 0;
+      margin-top: 90px;
     }
   }
   .nav-link {

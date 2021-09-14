@@ -94,44 +94,7 @@
 <script>
 export default {
   data() {
-    return {
-      newProducts: [
-        {
-          name: 'Magic Johnson',
-          imgSrc: require('../assets/players/player-1.jpg'),
-          route: '/product/1',
-        },
-        {
-          name: 'Dwyane Wade',
-          imgSrc: require('../assets/players/player-9.jpg'),
-          route: '/product/9',
-        },
-        {
-          name: 'Larry Bird',
-          imgSrc: require('../assets/players/player-12.jpg'),
-          route: '/product/12',
-        },
-        {
-          name: 'Kevin Durant',
-          imgSrc: require('../assets/players/player-13.jpg'),
-          route: '/product/13',
-        },
-        {
-          name: 'Kevin Garnett',
-          imgSrc: require('../assets/players/player-17.jpg'),
-          route: '/product/17',
-        },
-        {
-          name: 'Dirk Nowitzki',
-          imgSrc: require('../assets/players/player-19.jpg'),
-          route: '/product/19',
-        },
-        {
-          name: 'Kareem Abdul-Jabbar',
-          imgSrc: require('../assets/players/player-21.jpg'),
-          route: '/product/21',
-        },
-      ],
+    return {    
       groups: [
         {
           title: '後衛球員',
@@ -177,56 +140,14 @@ export default {
           imgSrc: require('../assets/players/nolookingpass.jpg'),
         },
       ],
-      hotSells: [
-        {
-          id: 7,
-          name: 'Kobe Brant',
-          imgSrc: require('../assets/players/player-7.jpg'),
-          price: 9999,
-          onSalePrice: 988,
-          route: 'Product-Detail',
-        },
-        {
-          id: 6,
-          name: 'Michael Jordan',
-          imgSrc: require('../assets/players/player-6.jpg'),
-          price: 9999,
-          onSalePrice: 988,
-          route: 'Product-Detail',
-        },
-        {
-          id: 11,
-          name: 'Lebron James',
-          imgSrc: require('../assets/players/player-11.jpg'),
-          price: 9999,
-          onSalePrice: 988,
-          route: 'Product-Detail',
-        },
-        {
-          id: 13,
-          name: 'Kevin Durant',
-          imgSrc: require('../assets/players/player-13.jpg'),
-          price: 9999,
-          onSalePrice: 988,
-          route: 'Product-Detail',
-        },
-        {
-          id: 2,
-          name: 'Stephen Curry',
-          imgSrc: require('../assets/players/player-2.jpg'),
-          price: 9999,
-          onSalePrice: 988,
-          route: 'Product-Detail',
-        },
-        {
-          id: 23,
-          name: "Shaquille O'Neal",
-          imgSrc: require('../assets/players/player-23.jpg'),
-          price: 9999,
-          onSalePrice: 988,
-          route: 'Product-Detail',
-        },
-      ],
+    }
+  },
+  computed: {
+    hotSells() {
+      return this.$store.state.products.filter((product) => product.isHotSell)
+    },
+    newProducts(){
+      return this.$store.state.products.filter((product) => product.isNew)
     }
   },
 }

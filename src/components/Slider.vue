@@ -42,8 +42,8 @@
 
 <script>
 import bannerHomeKb from '@/assets/banner/banner-home-1.jpg'
-import bannerHomeMj from '@/assets/banner/banner-home-2.jpg'
-import bannerHomeLbj from '@/assets/banner/banner-home-3.jpg'
+import bannerHomeKd from '@/assets/banner/banner-home-2.jpg'
+import bannerHomeLbj from '@/assets/banner/banner-home-3.webp'
 
 export default {
   data() {
@@ -58,9 +58,9 @@ export default {
           isActive: true,
         },
         {
-          id: 6,
-          name: 'Michael Jordan',
-          imgSrc: bannerHomeMj,
+          id: 12,
+          name: 'Kevin Durant',
+          imgSrc: bannerHomeKd,
           isActive: false,
         },
         {
@@ -96,8 +96,8 @@ export default {
       window.setInterval(() => {
         this.currentSlide++
         if (this.currentSlide > this.totalSlide - 1) this.currentSlide = 0
-        if (this.currentSlide < 0) this.currentSlide = this.totalSlide - 1
-      }, 3000)
+        if (this.currentSlide < 0) this.currentSlide = this.totalSlide - 1      
+      }, 10000)
     },
   },
   mounted() {
@@ -107,7 +107,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.slide-container{
+.slide-container {
   position: relative;
 }
 .slides {
@@ -116,17 +116,17 @@ export default {
   overflow: hidden;
   position: relative;
   @media screen and (max-width: 768px) {
-    height: 50vh;
+    height: 60vh;
   }
 }
 .slide {
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center 10%;
+  background-position: center 5%;
   position: absolute;
   top: 0%;
-  left: 0%;
+  left: 0%;  
 
   .hot-sell {
     background-color: rgba(0, 0, 0, 0.3);
@@ -192,7 +192,7 @@ export default {
   cursor: pointer;
   &:hover {
     color: #fff;
-  } 
+  }
 }
 .fa-chevron-left {
   left: 7.5%;
@@ -212,7 +212,7 @@ export default {
 .slide-leave-active,
 .slide-invert-enter-active,
 .slide-invert-leave-active {
-  transition: transform 0.5s linear;
+  transition: transform 1s linear;
 }
 
 .slide-enter {

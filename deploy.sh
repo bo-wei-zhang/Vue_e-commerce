@@ -14,7 +14,7 @@ cd dist
 
 git init
 git add -A
-git commit -m 'footer logo'
+git commit -m 'vuex update'
 
 # 部署到 https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
