@@ -8,8 +8,16 @@
           v-for="product in newProducts"
           :key="product.name"
         >
-          <router-link :to="product.route">
-            <img :src="product.imgSrc" :alt="product.name" />
+          <router-link
+            :to="{
+              name: 'Product-Detail',
+              params: { id: product.id },
+            }"
+          >
+            <img
+              :src="require(`@/assets/players/${product.imgSrc}`)"
+              :alt="product.name"
+            />
             <div class="player-cover flex-content">
               <h3>{{ product.name }}</h3>
             </div>
@@ -17,7 +25,7 @@
         </li>
       </ul>
     </section>
-    <section class="about bg-gray">
+    <section class="about bg-gray">    
       <h3>想知道喜歡的名星住哪嗎 ?</h3>
       <p>
         SKILL有你想要的東西 <br />
@@ -41,7 +49,7 @@
             <p>{{ group.title }}</p>
             <div class="border-line"></div>
             <p class="titleEng">{{ group.titleEng }}</p>
-            <router-link class="btn-primary more" to="/about">more</router-link>
+            <router-link class="btn-primary more" :to="{ name: group.route, params: { position: group.position } }">more</router-link>
           </div>
           <div class="card-cover"></div>
         </router-link>
@@ -56,7 +64,13 @@
             v-for="interview in interviews"
             :key="interview.content"
           >
-            <img :src="interview.imgSrc" :alt="interview.title" />
+           <div
+            class="interview-img"
+            :style="{
+              backgroundImage:
+                `url(${interview.imgSrc}) `,
+            }"
+          ></div>
             <h4 class="interview-title">{{ interview.title }}</h4>
             <p class="interview-content">{{ interview.content }}</p>
           </li>
@@ -79,7 +93,13 @@
           :key="hotSell.name"
           :to="{ name: hotSell.route, params: { id: hotSell.id } }"
         >
-          <img :src="hotSell.imgSrc" :alt="hotSell.name" />
+          <div
+            class="hot-sell-img"
+            :style="{
+              backgroundImage:
+                'url(' + require('@/assets/players/' + hotSell.imgSrc) + ')',
+            }"
+          ></div>
           <h3>【熱銷】{{ hotSell.name }}</h3>
           <span
             >特價 {{ hotSell.onSalePrice }}
@@ -94,7 +114,7 @@
 <script>
 export default {
   data() {
-    return {    
+    return {
       groups: [
         {
           title: '後衛球員',
@@ -146,9 +166,9 @@ export default {
     hotSells() {
       return this.$store.state.products.filter((product) => product.isHotSell)
     },
-    newProducts(){
+    newProducts() {
       return this.$store.state.products.filter((product) => product.isNew)
-    }
+    },
   },
 }
 </script>
@@ -383,8 +403,11 @@ export default {
     line-height: 1.2;
     text-align: center;
   }
-  img {
+  .interview-img {
     width: 100%;
+    height: 200px;
+    background-position: 0 30%;
+    background-size: cover;
   }
   .fadeaway {
     background-position: center 35%;
@@ -442,9 +465,11 @@ export default {
       width: 100%;
     }
   }
-  img {
+  .hot-sell-img {
     width: 90%;
     height: 350px;
+    background-size: cover;
+    background-position: center 5%;
   }
   h3 {
     font-size: 1.5rem;

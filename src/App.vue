@@ -1,8 +1,21 @@
 <template>
-  <div id="app">   
-    <router-view/>
+  <div id="app">
+    <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  methods:{
+    loadProductData(){
+      this.$store.dispatch('loadProductData')
+    }
+  },
+  mounted(){
+    this.loadProductData()
+  }  
+}
+</script>
 
 <style lang="scss">
 @import url(../public/css/reset.css);
@@ -27,7 +40,7 @@ h1 {
 .bg-gray {
   background-color: #333;
 }
-.bg-dark{
+.bg-dark {
   background-color: #000;
 }
 .btn-primary {

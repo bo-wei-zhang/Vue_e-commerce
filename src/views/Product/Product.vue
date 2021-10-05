@@ -6,7 +6,7 @@
       <div class="side-nav">
         <ul class="navs flex-content">
           <li
-            @click="swapCategory(category.title)"
+            @click="swapCategory(category.position)"
             v-for="category in categories"
             :key="category.title"
             class="nav"
@@ -18,7 +18,7 @@
       </div>
       <div class=" container flex-content">
         <router-link
-          v-for="product in $store.state.products"
+          v-for="product in currentPosition"
           :key="product.id"
           :to="{
             name: 'Product-Detail',
@@ -29,22 +29,27 @@
           <!-- params can pass data to next route -->
           <div
             class="card-top-img"
-            :style="{ backgroundImage: `url(${product.imgSrc})` }"
-          ></div>
+            :style="{
+              backgroundImage:
+                'url(' + require('@/assets/players/' + product.imgSrc) + ')',
+            }"
+          >
+            >
+          </div>
           <div class="card-content">
             {{ product.name }}
             <p class="flex-content">
               <router-link
                 class="add-cart"
                 to=""
-                @click.native="addToCart(product)"
+                @click.native="addToCart(product.id)"
               >
                 <i class="fas fa-cart-plus"></i>
               </router-link>
               <span class="originPrice">
-                <del>原價 $ {{product.originPrice}}</del>
+                <del>原價 $ {{ product.originPrice }}</del>
                 <br />
-                NT $ {{product.price}}
+                NT $ {{ product.price }}
               </span>
             </p>
           </div>
@@ -64,72 +69,49 @@ export default {
   data() {
     return {
       isShow: false,
-      adding: [],     
+      adding: [],
       categories: [
-        { title: '全部球技', isActive: true },
-        { title: '後衛球員', isActive: false },
-        { title: '前鋒球員', isActive: false },
-        { title: '中鋒球員', isActive: false },
-      ],    
-      allProducts: this.$store.state.products ,
-      cartItems: [],
+        { title: '全部球技', isActive: true, position: 'all' },
+        { title: '後衛球員', isActive: false, position: 'guard' },
+        { title: '前鋒球員', isActive: false, position: 'foward' },
+        { title: '中鋒球員', isActive: false, position: 'center' },
+      ],
     }
   },
 
+  computed: {
+    currentPosition() {
+     return this.$store.state.products
+    },
+  },
+
   methods: {
-    swapCategory(category) {
-      console.log(category)
-      if (category == '後衛球員') {
-        this.$store.state.products = this.allProducts
-        this.$store.state.products = this.$store.state.products.filter(
-          (product) => product.position == 'guard'
-        )
-      } else if (category == '前鋒球員') {
-        this.$store.state.products = this.allProducts
-        this.$store.state.products = this.$store.state.products.filter(
-          (product) => product.position == 'foward'
-        )
-      } else if (category == '中鋒球員') {
-        this.$store.state.products = this.allProducts
-        this.$store.state.products = this.$store.state.products.filter(
-          (product) => product.position == 'center'
-        )
-      } else {
-        this.$store.state.products = this.allProducts
-      }
+    swapCategory(position) {
+      //console.log(category)
       this.categories.forEach((item) => {
-        console.log(item, category)
-        if (item.title == category) item.isActive = !item.isActive
+        //console.log(item, category)
+        if (item.position == position) item.isActive = !item.isActive
         else item.isActive = false
       })
+      console.log('enter')
+      if (position == 'all') {
+        this.currentPosition = this.$store.state.products
+        return
+      }
+
+      this.currentPosition = this.$store.state.products
+      this.currentPosition = this.$store.state.products.filter(
+        (product) => product.position == position
+      )
     },
-    addToCart(product) {
-      let isNew = true
-      if (this.cartItems == null) this.cartItems.push(product)
+    addToCart(id) {
+      this.$store.dispatch('addToCart', { countShow: 1, id: id - 1 })
 
-      this.cartItems.forEach((cartItem) => {
-        if (product.id === cartItem.id) {
-          //檢查購物車裡有無此項商品
-          isNew = false
-          cartItem.count++
-        }
-      })
-
-      if (isNew) {
-        product.count++
-        this.cartItems.push(product)
-      } //將新的商品新增到購物車裡
-
-      localStorage.setItem('cartItems', JSON.stringify(this.cartItems))     
-     
-     this.$toastr.s("此商品已加入購物車", "SKILL");
+      this.$toastr.s('此商品已加入購物車', 'SKILL')
     },
   },
 
-  created() {
-    this.cartItems = JSON.parse(localStorage.getItem('cartItems')) || []
-    return this.cartItems
-  },
+  created() {},
 }
 </script>
 

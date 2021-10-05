@@ -34,7 +34,7 @@
         <li class="member cart">
           <router-link :to="{ name: 'Cart' }">
             <i class="fas fa-shopping-cart"></i>
-            <span>{{ cartItems.length }}</span>
+            <span>{{ cartItemsCount }}</span>
           </router-link>
         </li>
       </ul>
@@ -74,25 +74,16 @@ export default {
           position: 'center',
         },
       ],
-      cartItems: [],
     }
   },
-  methods: {
-    getLocalData() {
-      window.setInterval(
-        () =>
-          (this.cartItems =
-            JSON.parse(localStorage.getItem('cartItems')) || []),
-        3000
-      )
+  methods: {},
+  mounted() {},
+  computed: {
+    cartItemsCount() {
+      return this.$store.state.products.filter(
+        (product) => product.count > 0
+      ).length
     },
-  },
-  created() {
-    this.cartItems = JSON.parse(localStorage.getItem('cartItems')) || []
-    return this.cartItems
-  },
-  mounted() {
-    this.getLocalData()
   },
 }
 </script>
@@ -106,13 +97,13 @@ header {
   color: #fff;
   padding: 10px;
   font-size: 1.3rem;
- 
+
   nav {
     justify-content: space-between;
     align-items: center;
 
     @media screen and (max-width: 767px) {
-      overflow: hidden;       
+      overflow: hidden;
     }
   }
   #menu-control {

@@ -8,13 +8,20 @@
           v-for="(cartItem, index) in cartItemsInCart"
           :key="index"
         >
-          <div class="cart-info">
-            <div
-              class="cart-img"
-              :style="{ backgroundImage: `url(${cartItem.imgSrc})` }"
-            ></div>
-            <div class="cart-name">{{ cartItem.name }}</div>
-          </div>
+          <router-link
+            :to="{
+              name: 'Product-Detail',
+              params: { id: cartItem.id },
+            }"
+          >
+            <div class="cart-info">
+              <div
+                class="cart-img"
+               :style="{backgroundImage: 'url('+require('@/assets/players/'+cartItem.imgSrc)+')'}"
+              ></div>
+              <div class="cart-name">{{ cartItem.name }}</div>
+            </div>
+          </router-link>
           <div class="cart-controller flex-content">
             <div class="cart-price">
               {{ cartItem.sum | commaFormat | priceFormat }}
@@ -24,8 +31,8 @@
               <span class="cart-count"> {{ cartItem.count }} </span>
               <i class="fas fa-plus" @click="plusCount(cartItem)"></i>
             </div>
-            <div class="remove-cart-item">             
-              <i class="far fa-trash-alt" @click="removeCartItem(cartItem)"></i>             
+            <div class="remove-cart-item">
+              <i class="far fa-trash-alt" @click="removeCartItem(cartItem)"></i>
             </div>
           </div>
         </li>
@@ -58,31 +65,39 @@ export default {
   },
   data() {
     return {
-      cartItems: [],
+      
     }
   },
   created() {
-    this.cartItems = JSON.parse(localStorage.getItem('cartItems')) || []
-    return this.cartItems
+    if (sessionStorage.getItem('cartItems'))
+      this.$store.replaceState(
+        Object.assign(
+          {},
+          this.$store.state,
+          JSON.parse(sessionStorage.getItem('cartItems'))
+        )
+      )
+    window.addEventListener('beforeunload', () => {
+      sessionStorage.setItem('cartItems', JSON.stringify(this.$store.state))
+    })
   },
   computed: {
     cartItemsInCart() {
       return (
-        this.cartItems
+        this.$store.state.products
           //只顯示數量大於0的
-          .filter((cartItem) => cartItem.count > 0)
-          .map((cartItem) => {
-            cartItem.sum = cartItem.count * cartItem.price
-            return cartItem
+          .filter((product) => product.count > 0)
+          .map((product) => {
+            product.sum = product.count * product.price
+            return product
           })
       )
-      // },
     },
     total() {
       return this.cartItemsInCart.reduce((sum, p) => sum + p.sum, 0)
     },
     hasCartItem() {
-      return this.cartItems.length > 0
+      return this.cartItemsInCart.length > 0
     },
   },
   filters: {
@@ -102,32 +117,34 @@ export default {
           return pre + groupOf3Digital.replace(/\d{3}/g, ',$&')
         })
     },
-  },  
+  },
   methods: {
     plusCount(cartItem) {
-      cartItem.count++
-      localStorage.setItem('cartItems', JSON.stringify(this.cartItems))
+      this.$store.dispatch('plusCount', {
+        id: cartItem.id - 1,
+        count: cartItem.count,
+      })
     },
     minusCount(cartItem) {
-      if (cartItem.count <= 1) return
-      cartItem.count--
-      localStorage.setItem('cartItems', JSON.stringify(this.cartItems))
+      this.$store.dispatch('minusCount', {
+        id: cartItem.id - 1,
+        count: cartItem.count,
+      })
     },
     removeCartItem(cartItem) {
-      if (!confirm('確定要移除嗎?')) return
-      cartItem.count = 0
-      this.cartItems = this.cartItems.filter(
-        (cItem) => cartItem.id !== cItem.id
-      )
-
-      localStorage.setItem('cartItems', JSON.stringify(this.cartItems))
+      this.$store.dispatch('removeCartItem', {
+        id: cartItem.id - 1,
+        count: cartItem.count,
+      })
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-
+a {
+  color: #fff;
+}
 .cart-items {
   padding: 35px 70px;
   justify-content: space-around;
@@ -143,9 +160,8 @@ export default {
   }
   .fas {
     cursor: pointer;
-    
   }
-  .far{
+  .far {
     color: #fff;
   }
   .cart-item {
@@ -228,7 +244,7 @@ export default {
 }
 .no-cart-items {
   color: #fff;
-  padding: 50px;  
+  padding: 50px;
   justify-content: center;
   min-height: 100vh;
   h1 {

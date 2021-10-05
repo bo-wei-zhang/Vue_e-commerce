@@ -6,51 +6,45 @@
         <div class="flex-content container">
           <div
             class="product-img"
-            :style="{ backgroundImage: `url(${$store.state.products[id - 1].imgSrc})` }"
+            :style="{
+              backgroundImage:
+                'url(' + require('@/assets/players/' + product.imgSrc) + ')',
+            }"
           ></div>
           <div class="product-description">
-            <h1>【熱銷】{{ $store.state.products[id - 1].name }}</h1>
+            <h1>【熱銷】{{ product.name }}</h1>
             <h3>
-              球隊： {{ $store.state.products[id - 1].team }} 位置：
-              {{ $store.state.products[id - 1].position }}
+              球隊： {{ product.team }} 位置：
+              {{ product.position }}
             </h3>
             <p>
-              {{ $store.state.products[id - 1].description }}
+              {{ product.description }}
             </p>
             <div class="price flex-content">
               <del
                 >原價 $
-                {{
-                  $store.state.products[id - 1].originPrice | commaFormat | priceFormat
-                }}</del
+                {{ product.originPrice | commaFormat | priceFormat }}</del
               >
               <span class="price-no"
-                >優惠價 $
-                {{ $store.state.products[id - 1].price | commaFormat | priceFormat }}</span
+                >優惠價 $ {{ product.price | commaFormat | priceFormat }}</span
               >
             </div>
             <div class="product-info">
               <h3>您可獲得的技術有：</h3>
-              <p v-for="skill in $store.state.products[id - 1].skills" :key="skill">
+              <p v-for="skill in product.skills" :key="skill">
                 {{ skill }}
               </p>
               <div class="flex-content jc-sb">
                 <div class="product-amount flex-content">
-                  <div
-                    class="bg-round flex-content"
-                    @click="minusCount($store.state.products[id - 1])"
-                  >
+                  <div class="bg-round flex-content" @click="minusCount()">
                     <i class="fas fa-minus"></i>
                   </div>
-                  <span>{{ $store.state.products[id - 1].countShow }}</span>
-                  <div
-                    class="bg-round flex-content"
-                    @click="plusCount($store.state.products[id - 1])"
-                  >
+                  <span>{{ countShow }}</span>
+                  <div class="bg-round flex-content" @click="plusCount()">
                     <i class="fas fa-plus"></i>
                   </div>
                 </div>
-                <button class="buy-now" @click="addToCart($store.state.products[id - 1])">
+                <button class="buy-now" @click="addToCart">
                   立即購買
                 </button>
               </div>
@@ -93,8 +87,15 @@
             >
               <div
                 class="card-top-img"
-                :style="{ backgroundImage: `url(${reccommend.imgSrc})` }"
-              ></div>
+                :style="{
+                  backgroundImage:
+                    'url(' +
+                    require('@/assets/players/' + reccommend.imgSrc) +
+                    ')',
+                }"
+              >
+                >
+              </div>
               <div class="card-content">
                 {{ reccommend.name }}
                 <p>
@@ -122,10 +123,10 @@ export default {
   props: ['id'],
   components: { Header, Footer },
   data() {
-    return {          
+    return {
       reccommends: [],
-      cartItems: [],
       isShow: false,
+      countShow: 1,
     }
   },
   created() {
@@ -141,12 +142,15 @@ export default {
       this.reccommends = this.$store.state.products.filter(
         (product) => product.position === 'center'
       )
-    this.cartItems = JSON.parse(localStorage.getItem('cartItems')) || []
-    return this.cartItems
   },
   watch: {
     $route(to, from) {
       this.$router.go(0)
+    },
+  },
+  computed: {
+    product() {
+      return this.$store.state.products[this.id - 1]
     },
   },
   filters: {
@@ -168,33 +172,20 @@ export default {
     },
   },
   methods: {
-    addToCart(product) {
-      let isNew = true
-      if (this.cartItems == null) this.cartItems.push(product)
-
-      this.cartItems.forEach((cartItem) => {
-        if (product.id === cartItem.id) {
-          //檢查購物車裡有無此項商品
-          isNew = false
-          cartItem.count += product.countShow
-        }
+    addToCart() {
+      this.$store.dispatch('addToCart', {
+        countShow: this.countShow,
+        id: this.id - 1,
       })
-
-      if (isNew) {
-        product.count++
-        this.cartItems.push(product)
-      } //將新的商品新增到購物車裡
-
-      localStorage.setItem('cartItems', JSON.stringify(this.cartItems))
 
       this.$toastr.s('此商品已加入購物車', 'SKILL')
     },
-    plusCount(product) {
-      ++product.countShow
+    plusCount() {
+      ++this.countShow
     },
-    minusCount(product) {
-      if (product.countShow <= 1) return
-      product.countShow--
+    minusCount() {
+      if (this.countShow <= 1) return
+      this.countShow--
     },
   },
 }
