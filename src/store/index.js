@@ -5,7 +5,7 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 const getPrdoctInfoApi =
-  'https://api.jsonbin.io/b/615b3544aa02be1d4453fd5a/latest' // request URL
+  'https://api.jsonbin.io/v3/b/615b3544aa02be1d4453fd5a/latest' // request URL
 const token = '$2b$10$E80Yyy9TzBqCY7bceVjdneSHeiAZqkNzb9dVn.9FbaTeX6LCvyEam' // access token
 const axiosHeaders = {
   headers: { 'secret-key': token },
