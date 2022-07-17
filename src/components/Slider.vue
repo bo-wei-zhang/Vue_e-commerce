@@ -1,10 +1,11 @@
 <template>
   <div class="slide-container">
     <transition-group
-      :name="direction ? 'slide' : 'slide-invert'"
+      :name="positive ? 'slide' : 'slide-invert'"
       tag="ul"
       class="slides"
       mode="out-in"
+      appear
     >
       <li
         class="slide flex-content"
@@ -20,7 +21,7 @@
           </h2>
           <router-link
             class="buy-now btn-primary"
-            :to="{ name: 'Product-Detail', params: { id: slide.id } }"
+            :to="{ name: 'ProductDetail', params: { id: slide.id } }"
             >馬上買 buy now</router-link
           >
         </div>
@@ -35,73 +36,21 @@
         ></li>
       </ul>
     </transition-group>
-    <i class="fas fa-chevron-left" @click="swapSlide(currentSlide - 1)"></i>
-    <i class="fas fa-chevron-right" @click="swapSlide(currentSlide + 1)"></i>
+    <div class="left" @click="swapSlide(currentSlide - 1)">
+      <i class="fas fa-chevron-left"></i>
+    </div>
+    <div class="right" @click="swapSlide(currentSlide + 1)">
+      <i class="fas fa-chevron-right"></i>
+    </div>
   </div>
 </template>
 
 <script>
-import bannerHomeKb from '@/assets/banner/banner-home-1.jpg'
-import bannerHomeKd from '@/assets/banner/banner-home-2.jpg'
-import bannerHomeLbj from '@/assets/banner/banner-home-3.webp'
-
 export default {
-  data() {
-    return {
-      currentSlide: 0,
-      direction: true,
-      slides: [
-        {
-          id: 7,
-          name: 'Kobe Brant',
-          imgSrc: bannerHomeKb,
-          isActive: true,
-        },
-        {
-          id: 12,
-          name: 'Kevin Durant',
-          imgSrc: bannerHomeKd,
-          isActive: false,
-        },
-        {
-          id: 11,
-          name: 'Lebron James',
-          imgSrc: bannerHomeLbj,
-          isActive: false,
-        },
-      ],
-    }
-  },
-  computed: {
-    totalSlide() {
-      return this.slides.length
-    },
-  },
-  methods: {
-    swapSlide(index) {
-      this.slides[this.currentSlide].isActive = !this.slides[this.currentSlide]
-        .isActive
-
-      this.direction = index > this.currentSlide
-      //console.log(index)
-      this.currentSlide = (index + this.totalSlide) % this.totalSlide
-
-      this.slides[this.currentSlide].isActive = !this.slides[this.currentSlide]
-        .isActive
-    },
-    toggleShow(index) {
-      this.slides[index].isActive = !this.slides[index].isActive
-    },
-    autoSlide() {
-      window.setInterval(() => {
-        this.currentSlide++
-        if (this.currentSlide > this.totalSlide - 1) this.currentSlide = 0
-        if (this.currentSlide < 0) this.currentSlide = this.totalSlide - 1      
-      }, 10000)
-    },
-  },
-  mounted() {
-    //this.autoSlide()
+  props: {
+    currentSlide: Number,
+    positive: Boolean,
+    slides: Array,
   },
 }
 </script>
@@ -109,6 +58,7 @@ export default {
 <style lang="scss" scoped>
 .slide-container {
   position: relative;
+  padding-top: 89px;
 }
 .slides {
   width: 100%;
@@ -126,7 +76,7 @@ export default {
   background-position: center 5%;
   position: absolute;
   top: 0%;
-  left: 0%;  
+  left: 0%;
 
   .hot-sell {
     background-color: rgba(0, 0, 0, 0.3);
@@ -212,7 +162,7 @@ export default {
 .slide-leave-active,
 .slide-invert-enter-active,
 .slide-invert-leave-active {
-  transition: transform 1s linear;
+  transition: transform 0.5s linear;
 }
 
 .slide-enter {

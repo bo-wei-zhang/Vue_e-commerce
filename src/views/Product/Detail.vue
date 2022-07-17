@@ -1,14 +1,14 @@
 <template>
   <div>
+    <Loading :active.sync="isLoading"></Loading>
     <Header />
     <main>
-      <section class="product-detail">
-        <div class="flex-content container">
+      <section class="product-detail bg-dark">
+        <div class="flex-content container" v-if="!isLoading">
           <div
             class="product-img"
             :style="{
-              backgroundImage:
-                'url(' + require('@/assets/players/' + product.imgSrc) + ')',
+              backgroundImage: `url(https://i.imgur.com/${product.imgSrc})`,
             }"
           ></div>
           <div class="product-description">
@@ -22,11 +22,10 @@
             </p>
             <div class="price flex-content">
               <del
-                >原價 $
-                {{ product.originPrice | commaFormat | priceFormat }}</del
+                >原價 {{ product.originPrice | commaFormat | priceFormat }}</del
               >
               <span class="price-no"
-                >優惠價 $ {{ product.price | commaFormat | priceFormat }}</span
+                >優惠價 {{ product.price | commaFormat | priceFormat }}</span
               >
             </div>
             <div class="product-info">
@@ -52,7 +51,7 @@
           </div>
         </div>
       </section>
-      <section class="shopping-instruction">
+      <section class="shopping-instruction bg-dark">
         <div class="container">
           <h3 class="shopping-instruction-title">購物說明</h3>
           <p>
@@ -81,21 +80,16 @@
               v-for="reccommend in reccommends"
               :key="reccommend.id"
               :to="{
-                name: 'Product-Detail',
+                name: 'ProductDetail',
                 params: { id: reccommend.id },
               }"
             >
               <div
                 class="card-top-img"
                 :style="{
-                  backgroundImage:
-                    'url(' +
-                    require('@/assets/players/' + reccommend.imgSrc) +
-                    ')',
+                  backgroundImage: `url(https://i.imgur.com/${reccommend.imgSrc})`,
                 }"
-              >
-                >
-              </div>
+              ></div>
               <div class="card-content">
                 {{ reccommend.name }}
                 <p>
@@ -118,39 +112,39 @@
 <script>
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
-
+import { getCookie, setCookie } from '../../functions/cookies'
 export default {
   props: ['id'],
   components: { Header, Footer },
   data() {
     return {
-      reccommends: [],
       isShow: false,
       countShow: 1,
     }
   },
-  created() {
-    if (this.id <= 10)
-      this.reccommends = this.$store.state.products.filter(
-        (product) => product.position === 'guard'
-      )
-    if (this.id > 10 && this.id <= 20)
-      this.reccommends = this.$store.state.products.filter(
-        (product) => product.position === 'foward'
-      )
-    if (this.id > 20)
-      this.reccommends = this.$store.state.products.filter(
-        (product) => product.position === 'center'
-      )
-  },
-  watch: {
-    $route(to, from) {
-      this.$router.go(0)
-    },
-  },
+  created() {},
+
   computed: {
     product() {
-      return this.$store.state.products[this.id - 1]
+      return this.$store.state.products.find((product) => product.id == this.id)
+      //[this.id - 1]
+    },
+    reccommends() {
+      if (this.id <= 10)
+        return this.$store.state.products.filter(
+          (product) => product.position === 'guard' && product.id !== this.id
+        )
+      if (this.id > 10 && this.id <= 20)
+        return this.$store.state.products.filter(
+          (product) => product.position === 'foward' && product.id !== this.id
+        )
+      if (this.id > 20)
+        return this.$store.state.products.filter(
+          (product) => product.position === 'center' && product.id !== this.id
+        )
+    },
+    isLoading() {
+      return this.$store.state.isLoading
     },
   },
   filters: {
@@ -173,9 +167,23 @@ export default {
   },
   methods: {
     addToCart() {
+      if (navigator.share) {
+  navigator.share({
+    title: '標題',
+    text: '文字描述',
+    url: 'https://shubo.io/',
+  })
+    .then(() => console.log('成功！'))
+    .catch((error) => console.log('發生錯誤', error));
+}else{
+  alert('no share')
+}
+      return
+      if (getCookie('login') !== 'true')
+        return this.$router.push({ name: 'Login' })
       this.$store.dispatch('addToCart', {
         countShow: this.countShow,
-        id: this.id - 1,
+        id: this.id,
       })
 
       this.$toastr.s('此商品已加入購物車', 'SKILL')
@@ -198,11 +206,10 @@ export default {
   margin: 0 auto;
   justify-content: space-between;
   color: #fff;
-  padding: 0 35px;
+  padding: 0px 35px;
 }
 .product-detail {
-  padding: 35px 0;
-  background-color: #000;
+  padding: 150px 0 35px;
 
   @media screen and (max-width: 768px) {
     padding: 0;
@@ -212,6 +219,7 @@ export default {
     @media screen and (max-width: 768px) {
       flex-direction: column;
       padding: 0;
+      padding-top: 120px;
     }
   }
   .product-img {
@@ -315,13 +323,14 @@ export default {
       }
     }
     .buy-now {
-      padding: 5px 20px 10px;
+      padding: 5px 15px;
       border: 1px solid #fff;
+      border-radius: 10px;
       color: #fff;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       font-weight: 700;
       letter-spacing: 1.5px;
-      background-color: #000;
+
       cursor: pointer;
       transition: 0.3s;
       &:hover {
@@ -332,7 +341,6 @@ export default {
   }
 }
 .shopping-instruction {
-  background-color: #000;
   color: #fff;
   line-height: 1.5;
   padding: 25px 0;
@@ -354,7 +362,7 @@ export default {
 }
 
 .reccommendation {
-  background-color: #000;
+  background-color: #333;
   padding-bottom: 35px;
   overflow: hidden;
 
@@ -381,11 +389,12 @@ export default {
 
     @media screen and (max-width: 768px) {
       width: 100%;
+      overflow-y: scroll;
     }
   }
   .card {
     width: 300px;
-    height: 350px;
+    height: 425px;
     padding: 0 20px;
     display: inline-block;
 
@@ -397,7 +406,7 @@ export default {
     }
   }
   .card-top-img {
-    height: 100%;
+    height: 350px;
     background-position: center 15%;
     background-size: cover;
   }

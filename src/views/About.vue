@@ -45,7 +45,7 @@
           <li
             class="team-member"
             v-for="teamMember in teamMembers"
-            :key="teamMember.title"                    
+            :key="teamMember.title"
           >
             <div
               class="member-img"
@@ -128,6 +128,7 @@ export default {
 main {
   background-color: #000;
   color: #fff;
+  padding-top: 100px;
 }
 section {
   padding: 25px 0;

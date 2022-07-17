@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import { getCookie } from '../functions/cookies'
 
 Vue.use(VueRouter)
 
@@ -36,7 +37,7 @@ const routes = [
   },
   {
     path: '/product/:id', // do not add '/' or it will return to root, route woulb be binded by name
-    name: 'Product-Detail',
+    name: 'ProductDetail',
     component: () =>
       import(/* webpackChunkName: "product" */ '../views/Product/Detail.vue'),
     meta: {
@@ -60,10 +61,79 @@ const routes = [
     redirect: '/product',
   },
   {
-    path: '/member',
-    name: 'Member',
+    path: '/backend',
+    name: 'BackEndHome',
     component: () =>
-      import(/* webpackChunkName: "member" */ '../views/Member.vue'),
+      import(/* webpackChunkName: "member" */ '../views/BackEnd/Home.vue'),
+    meta: {
+      title: 'SKILL | 你想的到的球技都在這裡',
+      requireAuth: true,
+    },
+    children: [
+      {
+        path: 'product',
+        name: 'BackEndProduct',
+        component: () =>
+          import(
+            /* webpackChunkName: "member" */ '../views/BackEnd/Product.vue'
+          ),
+        meta: {
+          title: 'SKILL | 你想的到的球技都在這裡',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'edit/:editId',
+        name: 'BackEndProductEdit',
+        component: () =>
+          import(
+            /* webpackChunkName: "member" */ '../views/BackEnd/EditProduct.vue'
+          ),
+        meta: {
+          title: 'SKILL | 你想的到的球技都在這裡',
+        },
+        props: true,
+      },
+      {
+        path: 'create',
+        name: 'BackEndProductCreate',
+        component: () =>
+          import(
+            /* webpackChunkName: "member" */ '../views/BackEnd/CreateProduct.vue'
+          ),
+        meta: {
+          title: 'SKILL | 你想的到的球技都在這裡',
+        },
+      },
+      {
+        path: 'order',
+        name: 'BackEndOrder',
+        component: () =>
+          import(/* webpackChunkName: "member" */ '../views/BackEnd/Order.vue'),
+        meta: {
+          title: 'SKILL | 你想的到的球技都在這裡',
+        },
+      },
+      {
+        path: 'order/:orderId',
+        name: 'BackEndOrderDetail',
+        component: () =>
+          import(
+            /* webpackChunkName: "member" */ '../views/BackEnd/OrderDetail.vue'
+          ),
+        props: true,
+        meta: {
+          title: 'SKILL | 你想的到的球技都在這裡',
+        },
+      },
+    ],
+  },
+
+  {
+    path: '/login',
+    name: 'Login',
+    component: () =>
+      import(/* webpackChunkName: "member" */ '../views/Login.vue'),
     meta: {
       title: 'SKILL | 你想的到的球技都在這裡',
     },
@@ -74,7 +144,52 @@ const routes = [
     component: () => import(/* webpackChunkName: "cart" */ '../views/Cart.vue'),
     meta: {
       title: 'SKILL | 你想的到的球技都在這裡',
+      requireAuth: true,
     },
+  },
+  {
+    path: '/bill',
+    name: 'Bill',
+    component: () => import(/* webpackChunkName: "cart" */ '../views/Bill.vue'),
+    meta: {
+      title: 'SKILL | 你想的到的球技都在這裡',
+      requireAuth: true,
+    },
+  },
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: () =>
+      import(
+        /* webpackChunkName: "checkout" */ '../views/Checkout/Checkout.vue'
+      ),
+    meta: {
+      title: 'SKILL | 你想的到的球技都在這裡',
+    },
+    children: [
+      {
+        path: 'createorder',
+        name: 'CreateOrder',
+        component: () =>
+          import(
+            /* webpackChunkName: "member" */ '../views/Checkout/CreateOrder.vue'
+          ),
+        meta: {
+          title: 'SKILL | 你想的到的球技都在這裡',
+        },
+      },
+      {
+        path: 'finishorder',
+        name: 'FinishOrder',
+        component: () =>
+          import(
+            /* webpackChunkName: "member" */ '../views/Checkout/FinishOrder.vue'
+          ),
+        meta: {
+          title: 'SKILL | 你想的到的球技都在這裡',
+        },
+      },
+    ],
   },
   {
     path: '/:catchAll(.*)',
@@ -101,7 +216,24 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title
   }
-  next()
+  const isLogin = getCookie('login') === 'true'
+  //console.log(to)
+  if (to.meta.requireAuth) {
+    if (isLogin) {
+      next()
+    } else if (from.name == 'Login') {
+      alert('請登入！')
+    } else {
+      next({ name: 'Login' })
+    }
+  } else {
+    next()
+  }
 })
-
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject)
+    return originalPush.call(this, location, onResolve, onReject)
+  return originalPush.call(this, location).catch((err) => err)
+}
 export default router

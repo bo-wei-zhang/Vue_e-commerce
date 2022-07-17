@@ -1,6 +1,7 @@
 <template>
   <main>
-    <section class="new-product-list bg-gray">
+    <Loading :active.sync="isLoading"></Loading>
+    <section class="new-product-list bg-dark">
       <h2>新品上市</h2>
       <ul class="new-products">
         <li
@@ -10,12 +11,12 @@
         >
           <router-link
             :to="{
-              name: 'Product-Detail',
+              name: 'ProductDetail',
               params: { id: product.id },
             }"
           >
             <img
-              :src="require(`@/assets/players/${product.imgSrc}`)"
+              :src="`https://i.imgur.com/${product.imgSrc}`"
               :alt="product.name"
             />
             <div class="player-cover flex-content">
@@ -25,7 +26,7 @@
         </li>
       </ul>
     </section>
-    <section class="about bg-gray">    
+    <section class="about bg-dark">
       <h3>想知道喜歡的名星住哪嗎 ?</h3>
       <p>
         SKILL有你想要的東西 <br />
@@ -36,7 +37,7 @@
         >about us</router-link
       >
     </section>
-    <section class="player-group bg-gray">
+    <section class="player-group bg-dark">
       <div class="card-wrap flex-content">
         <router-link
           class="card flex-content"
@@ -49,13 +50,17 @@
             <p>{{ group.title }}</p>
             <div class="border-line"></div>
             <p class="titleEng">{{ group.titleEng }}</p>
-            <router-link class="btn-primary more" :to="{ name: group.route, params: { position: group.position } }">more</router-link>
+            <router-link
+              class="btn-primary more"
+              :to="{ name: group.route, params: { position: group.position } }"
+              >more</router-link
+            >
           </div>
           <div class="card-cover"></div>
         </router-link>
       </div>
     </section>
-    <section class="interview bg-gray">
+    <section class="interview bg-dark">
       <div class="flex-content container">
         <h3>採訪記事</h3>
         <ul class="cards flex-content">
@@ -64,13 +69,12 @@
             v-for="interview in interviews"
             :key="interview.content"
           >
-           <div
-            class="interview-img"
-            :style="{
-              backgroundImage:
-                `url(${interview.imgSrc}) `,
-            }"
-          ></div>
+            <div
+              class="interview-img"
+              :style="{
+                backgroundImage: `url(${interview.imgSrc}) `,
+              }"
+            ></div>
             <h4 class="interview-title">{{ interview.title }}</h4>
             <p class="interview-content">{{ interview.content }}</p>
           </li>
@@ -84,7 +88,7 @@
         </div>
       </div>
     </section>
-    <section class="hot-sell bg-gray">
+    <section class="hot-sell bg-dark">
       <h2>熱門暢銷商品</h2>
       <div class="hot-sell-products flex-content">
         <router-link
@@ -96,8 +100,7 @@
           <div
             class="hot-sell-img"
             :style="{
-              backgroundImage:
-                'url(' + require('@/assets/players/' + hotSell.imgSrc) + ')',
+              backgroundImage: `url(https://i.imgur.com/${hotSell.imgSrc})`,
             }"
           ></div>
           <h3>【熱銷】{{ hotSell.name }}</h3>
@@ -125,7 +128,7 @@ export default {
         },
         {
           title: '前鋒球員',
-          imgSrc: require('../assets/players/foward.webp'),
+          imgSrc: require('../assets/players/foward.jpg'),
           titleEng: 'Foward',
           position: 'foward',
           route: 'Player',
@@ -168,6 +171,9 @@ export default {
     },
     newProducts() {
       return this.$store.state.products.filter((product) => product.isNew)
+    },
+    isLoading() {
+      return this.$store.state.isLoading
     },
   },
 }
@@ -415,13 +421,14 @@ export default {
     top: 0;
     left: 0;
     width: 50%;
-    height: 700px;
+    height: 100%;
     padding: 0 25px;
     @media screen and (max-width: 768px) {
       width: 100%;
       height: 550px;
     }
     img {
+      width: 100%;
       height: 100%;
     }
     .txt {
@@ -470,6 +477,9 @@ export default {
     height: 350px;
     background-size: cover;
     background-position: center 5%;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
   }
   h3 {
     font-size: 1.5rem;

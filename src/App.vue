@@ -1,19 +1,32 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view :class="{ 'back-end-container': true }" />
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
-  methods:{
-    loadProductData(){
-      this.$store.dispatch('loadProductData')
-    }
+  methods: {
+    getProductData() {
+      this.$store.dispatch('getProductData')
+    },
+    ...mapMutations(['setWindowWidth']),
+    initialize() {
+      this.detectWindowWidth()
+    },
+    detectWindowWidth() {
+      this.setWindowWidth(window.innerWidth)
+    },
   },
-  mounted(){
-    this.loadProductData()
-  }  
+  created() {
+    this.getProductData()
+    this.initialize()
+    window.addEventListener('resize', this.detectWindowWidth)
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.detectWindowWidth)
+  },
 }
 </script>
 
@@ -37,12 +50,15 @@ h1 {
   font-size: 2rem;
   text-align: center;
 }
-.bg-gray {
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.bg-dark {
   background-color: #333;
 }
-.bg-dark {
-  background-color: #000;
-}
+
 .btn-primary {
   display: inline-block;
   background-color: #fff;
@@ -56,5 +72,10 @@ h1 {
   &:hover {
     background-color: #eee;
   }
+}
+button {
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
 }
 </style>

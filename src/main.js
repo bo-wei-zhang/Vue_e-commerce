@@ -4,7 +4,13 @@ import router from './router'
 import store from './store'
 // import plugin
 import VueToastr from 'vue-toastr'
-// use plugin
+import VueLoading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
+
+// Your app initialization logic goes here
+
+Vue.component('Loading', VueLoading)
+
 Vue.use(VueToastr, {
   /* OverWrite Plugin Options if you need */
   defaultTimeout: 3000,
@@ -17,8 +23,7 @@ Vue.use(VueToastr, {
     'background-color': '#333',
     color: '#fff',
     padding: '20px 15px 20px 50px',
-    'margin-bottom': '25px'
-    
+    'margin-bottom': '25px',
   },
 })
 

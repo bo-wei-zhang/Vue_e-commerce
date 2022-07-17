@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="bg-dark">
+    <Loading :active.sync="isLoading"></Loading>
     <Header />
     <div
       class="banner flex-content"
@@ -13,7 +14,7 @@
           v-for="product in currentPosition"
           :key="product.id"
           :to="{
-            name: 'Product-Detail',
+            name: 'ProductDetail',
             params: { id: product.id },
           }"
           class="card"
@@ -21,7 +22,9 @@
           <!-- params can pass data to next route -->
           <div
             class="card-top-img"
-            :style="{backgroundImage: 'url('+require('@/assets/players/'+product.imgSrc)+')'}">
+            :style="{
+              backgroundImage: `url(https://i.imgur.com/${product.imgSrc})`,
+            }"
           ></div>
           <div class="card-content">
             {{ product.name }}
@@ -50,6 +53,7 @@
 <script>
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
+import { getCookie, setCookie } from '../functions/cookies'
 
 export default {
   components: { Header, Footer },
@@ -80,7 +84,9 @@ export default {
 
   methods: {
     addToCart(id) {
-      this.$store.dispatch('addToCart', { countShow: 1, id: id - 1 })
+      if (getCookie('login') !== 'true')
+        return this.$router.push({ name: 'Login' })
+      this.$store.dispatch('addToCart', { countShow: 1, id: id })
 
       this.$toastr.s('此商品已加入購物車', 'SKILL')
     },
@@ -94,6 +100,9 @@ export default {
     currentBanner() {
       return this.banners.filter((banner) => banner.position === this.position)
     },
+    isLoading() {
+      return this.$store.state.isLoading
+    },
   },
   created() {
     // this.banners = this.banners.filter(
@@ -106,10 +115,10 @@ export default {
 <style lang="scss" scoped>
 .banner {
   background-size: cover;
-  background-position: center 10%;
-  height: 70vh;
+  background-position: center top;
   justify-content: center;
   align-items: center;
+  height: 80vh;
   .position {
     font-size: 3rem;
     text-align: center;
@@ -126,9 +135,8 @@ export default {
 }
 
 .container {
-  background-color: #333;
   justify-content: space-evenly;
-  padding: 0 50px;
+  padding: 0 50px 35px;
   .card {
     width: 350px;
     @media screen and (max-width: 768px) {

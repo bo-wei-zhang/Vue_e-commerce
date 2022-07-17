@@ -1,0 +1,8 @@
+Client ID:
+b7f4e6d59ef9ed4
+
+Client secret:
+eb1100f99cdfc638e7d2779eeed4332b65d826e2
+
+Access Token: 
+f0d0207dc46bf11a137afb26a2e7c6d0bab25fda
