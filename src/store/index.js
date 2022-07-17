@@ -8,7 +8,8 @@ const getPrdoctInfoApi =
   'https://api.jsonbin.io/v3/b/615b3544aa02be1d4453fd5a/latest' // request URL
 const token = '$2b$10$E80Yyy9TzBqCY7bceVjdneSHeiAZqkNzb9dVn.9FbaTeX6LCvyEam' // access token
 const axiosHeaders = {
-  headers: { 'secret-key': token },
+  headers: { 'X-Master-Key': token ,'Content-Type':'application/json'},
+ 
 }
 
 export default new Vuex.Store({
@@ -80,8 +81,8 @@ export default new Vuex.Store({
       axios
         .get(getPrdoctInfoApi, axiosHeaders)
         .then((response) => {
-          console.log('Store: ', response.data)
-          commit('GET_PRODUCT_DATA', response.data)
+          console.log('Store: ', response.data.record)
+          commit('GET_PRODUCT_DATA', response.data.record)
           commit('LOADING_STATUS', false)
         })
         .catch((error) => console.log(error))

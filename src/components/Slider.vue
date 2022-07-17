@@ -36,11 +36,11 @@
         ></li>
       </ul>
     </transition-group>
-    <div class="left" @click="swapSlide(currentSlide - 1)">
+    <div class="left" @click="$emit('swapSlide',currentSlide - 1)">
       <i class="fas fa-chevron-left"></i>
     </div>
-    <div class="right" @click="swapSlide(currentSlide + 1)">
-      <i class="fas fa-chevron-right"></i>
+    <div class="right" @click="$emit('swapSlide',currentSlide + 1)">
+      <i class="fas fa-chevron-right"></i>     
     </div>
   </div>
 </template>
@@ -51,7 +51,7 @@ export default {
     currentSlide: Number,
     positive: Boolean,
     slides: Array,
-  },
+  },  
 }
 </script>
 
