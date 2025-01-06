@@ -4,12 +4,10 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-const getPrdoctInfoApi =
-  'https://api.jsonbin.io/v3/b/615b3544aa02be1d4453fd5a/latest' // request URL
-const token = '$2b$10$E80Yyy9TzBqCY7bceVjdneSHeiAZqkNzb9dVn.9FbaTeX6LCvyEam' // access token
+const getPrdoctInfoApi = `${process.env.VUE_APP_API_HOST}/latest` // request URL
+const token = process.env.TOKEN // access token
 const axiosHeaders = {
-  headers: { 'X-Master-Key': token ,'Content-Type':'application/json'},
- 
+  headers: { 'X-Master-Key': token, 'Content-Type': 'application/json' },
 }
 
 export default new Vuex.Store({
@@ -34,7 +32,6 @@ export default new Vuex.Store({
       })
 
       sessionStorage.setItem('cartItems', JSON.stringify(state.products))
-      // console.log(JSON.parse(sessionStorage.getItem('cartItems'))[id].count)
     },
     PLUS_COUNT(state, { id }) {
       // console.log('+', id)
@@ -52,23 +49,13 @@ export default new Vuex.Store({
       sessionStorage.setItem('cartItems', JSON.stringify(state.products))
     },
     REMOVE_CART_ITEM(state, { ids, isSystem }) {
-      console.log(isSystem)
-      if (!isSystem) {
-        if (!confirm('確定要移除嗎?')) return
-        state.products.map((product) => {
-          ids.map((id) => {
-            if (product.id === id) product.count = 0
-          })
+      if (!isSystem && !confirm('確定要移除嗎?')) return
+      state.products.map((product) => {
+        ids.map((id) => {
+          if (product.id === id) product.count = 0
         })
-        sessionStorage.setItem('cartItems', JSON.stringify(state.products))
-      } else {
-        state.products.map((product) => {
-          ids.map((id) => {
-            if (product.id === id) product.count = 0
-          })
-        })
-        sessionStorage.setItem('cartItems', JSON.stringify(state.products))
-      }
+      })
+      sessionStorage.setItem('cartItems', JSON.stringify(state.products))
     },
     setWindowWidth(state, value) {
       state.windowWidth = value
